@@ -1,1 +1,2227 @@
-# IAK-STEAM-Typing-Master
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeedType - Typing Test</title>
+    <link rel="icon" type="image/png" href="./steam.png.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f9ff 0%, #e6f0ff 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(to right, #2c6fb7, #3a8fe8);
+            color: white;
+            box-shadow: 0 5px 15px rgba(44, 111, 183, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Page Management */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(44, 111, 183, 0.15);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .card-header {
+            background: linear-gradient(to right, #3a8fe8, #5aa1f0);
+            color: white;
+            padding: 20px 30px;
+        }
+
+        .card-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c6fb7;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #d1e3ff;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #3a8fe8;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(58, 143, 232, 0.2);
+        }
+
+        /* Button Styles */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            min-height: 44px;
+            /* Better touch target for mobile */
+            min-width: 44px;
+            /* Better touch target for mobile */
+        }
+
+        .btn-primary {
+            background-color: #3a8fe8;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2c6fb7;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(44, 111, 183, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: #e6f0ff;
+            color: #2c6fb7;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d1e3ff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(209, 227, 255, 0.8);
+        }
+
+        .btn-danger {
+            background-color: #ff6b6b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Home Page Styles */
+        .intro-text {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .stats-preview {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-box {
+            flex: 1;
+            min-width: 200px;
+            background-color: #e6f0ff;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border-top: 5px solid #3a8fe8;
+        }
+
+        .stat-box i {
+            font-size: 2.5rem;
+            color: #3a8fe8;
+            margin-bottom: 15px;
+        }
+
+        .stat-box h3 {
+            color: #2c6fb7;
+            margin-bottom: 8px;
+        }
+
+        .stat-box p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .features {
+            margin-top: 40px;
+        }
+
+        .features h2 {
+            text-align: center;
+            color: #2c6fb7;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(44, 111, 183, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature i {
+            font-size: 2.2rem;
+            color: #3a8fe8;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            color: #2c6fb7;
+            margin-bottom: 10px;
+        }
+
+        /* Typing Test Page Styles */
+        .stats-panel {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(44, 111, 183, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c6fb7;
+        }
+
+        .stat-value.warning {
+            color: #ff6b6b;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .typing-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(44, 111, 183, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .test-info {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e6f0ff;
+        }
+
+        .test-info h2 {
+            color: #2c6fb7;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .instructions {
+            background-color: #e6f0ff;
+            padding: 15px;
+            border-radius: 10px;
+            color: #2c6fb7;
+        }
+
+        .instructions i {
+            margin-right: 8px;
+        }
+
+        .text-display {
+            background-color: #f8fbff;
+            border-radius: 12px;
+            padding: 25px;
+            min-height: 180px;
+            margin-bottom: 25px;
+            border: 2px solid #e6f0ff;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            overflow-wrap: break-word;
+            user-select: none;
+            /* Prevent text selection on mobile */
+        }
+
+        .word {
+            display: inline-block;
+            margin-right: 2px;
+        }
+
+        .char {
+            display: inline-block;
+            transition: all 0.1s ease;
+            padding: 2px 1px;
+            border-radius: 3px;
+        }
+
+        .char.correct {
+            color: #27ae60;
+            background-color: rgba(39, 174, 96, 0.1);
+        }
+
+        .char.incorrect {
+            color: #e74c3c;
+            background-color: rgba(231, 76, 60, 0.1);
+            text-decoration: line-through;
+        }
+
+        .char.current {
+            background-color: #a5d1ff;
+            color: #2c6fb7;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                background-color: #a5d1ff;
+            }
+
+            50% {
+                background-color: #d1e3ff;
+            }
+        }
+
+        .word-correct {
+            background-color: rgba(39, 174, 96, 0.1);
+            border-radius: 4px;
+        }
+
+        .word-incorrect {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-radius: 4px;
+        }
+
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-area textarea {
+            width: 100%;
+            height: 150px;
+            padding: 20px;
+            border: 2px solid #d1e3ff;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            resize: none;
+            transition: all 0.3s ease;
+            line-height: 1.6;
+            -webkit-user-select: text;
+            /* Allow text selection in textarea */
+            user-select: text;
+        }
+
+        .input-area textarea:focus {
+            border-color: #3a8fe8;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(58, 143, 232, 0.2);
+        }
+
+        .input-hint {
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .key-hint {
+            background-color: #e6f0ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #2c6fb7;
+            font-weight: 600;
+        }
+
+        .typing-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .results-panel {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(44, 111, 183, 0.15);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .results-panel h2 {
+            color: #2c6fb7;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .final-stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .final-stat {
+            flex: 1;
+            min-width: 200px;
+            background-color: #e6f0ff;
+            border-radius: 12px;
+            padding: 25px;
+            border-top: 5px solid #3a8fe8;
+        }
+
+        .final-stat h3 {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .final-stat p {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2c6fb7;
+        }
+
+        /* Admin Panel Styles */
+        .admin-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .admin-stat-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(44, 111, 183, 0.1);
+            border-top: 5px solid #3a8fe8;
+        }
+
+        .admin-stat-card i {
+            font-size: 2.5rem;
+            color: #3a8fe8;
+            margin-bottom: 15px;
+        }
+
+        .admin-stat-card h3 {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .admin-stat-card p {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c6fb7;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e6f0ff;
+        }
+
+        .dashboard-header h2 {
+            color: #2c6fb7;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .controls-body {
+            padding: 25px 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c6fb7;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #d1e3ff;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .results-table-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(44, 111, 183, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .results-table-container h3 {
+            color: #2c6fb7;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            /* Smooth scrolling on iOS */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            /* Minimum table width for mobile scrolling */
+        }
+
+        thead {
+            background-color: #e6f0ff;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            color: #2c6fb7;
+            font-weight: 600;
+            border-bottom: 2px solid #d1e3ff;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f7ff;
+        }
+
+        tr:hover {
+            background-color: #f8fbff;
+        }
+
+        .no-results {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            color: #999;
+            text-align: center;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #d1e3ff;
+        }
+
+        .login-hint {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e6f0ff;
+            border-radius: 8px;
+            color: #2c6fb7;
+            text-align: center;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(44, 111, 183, 0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #2c6fb7;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            min-height: 44px;
+            /* Better touch target for mobile */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            background-color: #e6f0ff;
+            color: #2c6fb7;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 44px;
+            /* Better touch target for mobile */
+            min-width: 44px;
+            /* Better touch target for mobile */
+        }
+
+        .nav-link:hover {
+            background-color: #3a8fe8;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background-color: #3a8fe8;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #666;
+            margin-top: 30px;
+            border-top: 2px solid #e6f0ff;
+        }
+
+        /* ========== MOBILE RESPONSIVE STYLES ========== */
+        /* Prevent textarea zoom on iOS */
+        @media screen and (max-width: 768px) {
+
+            textarea,
+            input[type="text"],
+            input[type="password"],
+            select {
+                font-size: 16px !important;
+                /* Prevents iOS zoom on focus */
+            }
+
+            /* Hide keyboard shortcuts on mobile */
+            .input-hint .key-hint:not(.mobile-visible) {
+                display: none;
+            }
+
+            .input-hint {
+                font-size: 0.8rem;
+                justify-content: center;
+            }
+
+            /* Mobile-only visible hint */
+            .mobile-hint {
+                display: inline-block !important;
+            }
+        }
+
+        /* Tablet and Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 2.2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .stats-panel {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px;
+            }
+
+            .stat-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: left;
+                padding: 10px 0;
+                border-bottom: 1px solid #e6f0ff;
+            }
+
+            .stat-item:last-child {
+                border-bottom: none;
+            }
+
+            .stat-label {
+                margin-bottom: 0;
+                font-size: 1rem;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .final-stats,
+            .admin-stats {
+                flex-direction: column;
+            }
+
+            .final-stat,
+            .admin-stat-card,
+            .stat-box,
+            .feature {
+                min-width: 100%;
+            }
+
+            .controls-body {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th,
+            td {
+                padding: 10px 8px;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .nav-link {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+                flex: 1;
+                justify-content: center;
+                min-width: 100px;
+            }
+
+            .typing-container {
+                padding: 20px;
+            }
+
+            .text-display {
+                font-size: 1.1rem;
+                padding: 20px;
+                min-height: 160px;
+            }
+
+            .input-area textarea {
+                height: 130px;
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+
+            .typing-controls {
+                flex-direction: column;
+            }
+
+            .results-panel {
+                padding: 20px;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .card-header {
+                padding: 15px 20px;
+            }
+
+            .card-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .dashboard-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .text-display {
+                font-size: 1rem;
+                padding: 15px;
+                min-height: 140px;
+                line-height: 1.6;
+            }
+
+            .stat-value {
+                font-size: 1.8rem;
+            }
+
+            .final-stat p,
+            .admin-stat-card p {
+                font-size: 1.8rem;
+            }
+
+            .nav-link {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+                min-width: 90px;
+            }
+
+            .input-area textarea {
+                height: 120px;
+                font-size: 1rem;
+            }
+
+            .instructions {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            .input-hint {
+                font-size: 0.75rem;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .features h2,
+            .results-table-container h3 {
+                font-size: 1.3rem;
+            }
+
+            footer {
+                padding: 20px;
+                font-size: 0.9rem;
+            }
+
+            /* Stack stats horizontally on very small screens */
+            .stats-preview {
+                flex-direction: column;
+            }
+
+            .stat-box {
+                width: 100%;
+            }
+
+            /* Adjust button padding for mobile */
+            .btn {
+                padding: 12px 20px;
+            }
+
+            /* Make table more compact on mobile */
+            th,
+            td {
+                padding: 8px 6px;
+                font-size: 0.85rem;
+            }
+
+            table {
+                min-width: 500px;
+            }
+
+            /* Improve touch targets for form elements */
+            .form-group input,
+            .form-group select {
+                padding: 12px 15px;
+            }
+        }
+
+        /* Extra Small Devices (iPhone SE, etc.) */
+        @media (max-width: 360px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+            .text-display {
+                font-size: 0.95rem;
+                padding: 12px;
+            }
+
+            .input-area textarea {
+                height: 110px;
+                font-size: 0.95rem;
+                padding: 12px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-link {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+                min-width: 80px;
+            }
+
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+
+            .stat-value {
+                font-size: 1.6rem;
+            }
+
+            table {
+                min-width: 450px;
+            }
+
+            th,
+            td {
+                padding: 6px 4px;
+                font-size: 0.8rem;
+            }
+
+            /* Adjust stats panel for very small screens */
+            .stat-item {
+                padding: 8px 0;
+            }
+
+            .stat-label {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Landscape mode optimizations */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .typing-container {
+                padding: 15px;
+            }
+
+            .text-display {
+                min-height: 120px;
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .input-area textarea {
+                height: 100px;
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .test-info {
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+
+            .instructions {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            .stats-panel {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .typing-controls {
+                gap: 10px;
+            }
+        }
+
+        /* High-resolution devices */
+        @media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
+
+            /* Ensure text remains crisp on retina displays */
+            .text-display,
+            .input-area textarea,
+            .stat-value,
+            .final-stat p,
+            .admin-stat-card p {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+
+            .nav-bar,
+            .typing-controls,
+            .input-area,
+            .input-hint,
+            .btn,
+            footer {
+                display: none !important;
+            }
+
+            .typing-container,
+            .results-panel,
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            .text-display {
+                min-height: auto;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <a href="#" class="nav-logo" onclick="showPage('home')">
+                <i class="fas fa-keyboard"></i>
+                <span>SpeedType</span>
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link" id="nav-home" onclick="showPage('home')">
+                    <i class="fas fa-home"></i> <span class="nav-text">Home</span>
+                </a>
+                <a href="#" class="nav-link" id="nav-typing" onclick="showPage('typing')">
+                    <i class="fas fa-keyboard"></i> <span class="nav-text">Typing Test</span>
+                </a>
+                <a href="#" class="nav-link" id="nav-admin" onclick="showPage('admin')">
+                    <i class="fas fa-user-shield"></i> <span class="nav-text">Admin</span>
+                </a>
+            </div>
+        </div>
+
+        <header>
+            <h1><i class="fas fa-keyboard"></i> Free Typing Test With IAK STEAM</h1>
+            <p class="subtitle">Test your typing speed and accuracy</p>
+        </header>
+
+        <!-- Home Page -->
+        <div id="home-page" class="page active">
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-home"></i> Welcome to SpeedType</h2>
+                </div>
+                <div class="card-body">
+                    <p class="intro-text">Take a typing test to measure your words per minute (WPM) and accuracy.
+                        Challenge yourself and track your progress over time!</p>
+
+                    <div class="stats-preview">
+                        <div class="stat-box">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <h3>WPM</h3>
+                            <p>Words Per Minute</p>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fas fa-bullseye"></i>
+                            <h3>Accuracy</h3>
+                            <p>Typing Precision</p>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fas fa-history"></i>
+                            <h3>60 Seconds</h3>
+                            <p>Test Duration</p>
+                        </div>
+                    </div>
+
+                    <form id="user-form">
+                        <div class="form-group">
+                            <label for="username"><i class="fas fa-user"></i> Enter Your Name</label>
+                            <input type="text" id="username" placeholder="Type your name here..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="test-mode"><i class="fas fa-cogs"></i> Test Mode</label>
+                            <select id="test-mode">
+                                <option value="60">60 Seconds (Standard)</option>
+                                <option value="30">30 Seconds (Quick)</option>
+                                <option value="120">120 Seconds (Extended)</option>
+                            </select>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-play-circle"></i> Start Typing Test
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="features">
+                <h2><i class="fas fa-star"></i> Features</h2>
+                <div class="feature-list">
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Real-time Stats</h3>
+                        <p>Watch your WPM and accuracy update as you type</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-history"></i>
+                        <h3>Track Progress</h3>
+                        <p>Save all your test results and monitor improvement</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-font"></i>
+                        <h3>Random Texts</h3>
+                        <p>Get a new paragraph each time for fresh challenges</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typing Test Page -->
+        <div id="typing-page" class="page">
+            <div class="stats-panel">
+                <div class="stat-item">
+                    <div class="stat-label">Time Left</div>
+                    <div class="stat-value" id="timer">60s</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">WPM</div>
+                    <div class="stat-value" id="wpm">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Accuracy</div>
+                    <div class="stat-value" id="accuracy">100%</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Score</div>
+                    <div class="stat-value" id="score">0</div>
+                </div>
+            </div>
+
+            <div class="typing-container">
+                <div class="test-info">
+                    <h2><i class="fas fa-user"></i> <span id="current-user">Guest</span></h2>
+                    <div class="instructions">
+                        <p><i class="fas fa-info-circle"></i> Type the text below. All words are in lowercase. Press
+                            SPACE after each word to move to the next.</p>
+                    </div>
+                </div>
+
+                <div class="text-display" id="text-display">
+                    <!-- Text will be inserted by JavaScript -->
+                </div>
+
+                <div class="input-area">
+                    <textarea id="typing-input" placeholder="Start typing here... (all lowercase)"></textarea>
+                    <div class="input-hint">
+                        <i class="fas fa-lightbulb"></i>
+                        <span class="mobile-hint" style="display: none;">Type & press SPACE</span>
+                        <span class="key-hint mobile-visible">SPACE</span> after each word |
+                        <span class="key-hint">R</span> to restart |
+                        <span class="key-hint">N</span> for new text
+                    </div>
+                </div>
+
+                <div class="typing-controls">
+                    <button id="restart-btn" class="btn btn-primary">
+                        <i class="fas fa-redo"></i> Restart Test
+                    </button>
+                    <button id="new-text-btn" class="btn btn-primary">
+                        <i class="fas fa-sync-alt"></i> New Text
+                    </button>
+                    <button id="home-btn" class="btn btn-secondary">
+                        <i class="fas fa-home"></i> Return Home
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-panel" id="results-panel" style="display: none;">
+                <h2><i class="fas fa-trophy"></i> Test Completed!</h2>
+                <div class="final-stats">
+                    <div class="final-stat">
+                        <h3>Final WPM</h3>
+                        <p id="final-wpm">0</p>
+                    </div>
+                    <div class="final-stat">
+                        <h3>Accuracy</h3>
+                        <p id="final-accuracy">100%</p>
+                    </div>
+                    <div class="final-stat">
+                        <h3>Score</h3>
+                        <p id="final-score">0</p>
+                    </div>
+                    <div class="final-stat">
+                        <h3>Words Typed</h3>
+                        <p id="final-words">0</p>
+                    </div>
+                </div>
+                <button id="try-again-btn" class="btn btn-primary">
+                    <i class="fas fa-play-circle"></i> Try Again
+                </button>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="admin-page" class="page">
+            <div id="login-panel" class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
+                </div>
+                <div class="card-body">
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="admin-username"><i class="fas fa-user"></i> Username</label>
+                            <input type="text" id="admin-username" placeholder="Enter admin username" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-password"><i class="fas fa-lock"></i> Password</label>
+                            <input type="password" id="admin-password" placeholder="Enter admin password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </button>
+                        </div>
+
+                        <div class="login-hint">
+                            <p><i class="fas fa-info-circle"></i> Default credentials: admin / 1234</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="dashboard" class="dashboard" style="display: none;">
+                <div class="dashboard-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
+                    <button id="logout-btn" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+
+                <div class="admin-stats">
+                    <div class="admin-stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Total Users</h3>
+                        <p id="total-users">0</p>
+                    </div>
+                    <div class="admin-stat-card">
+                        <i class="fas fa-history"></i>
+                        <h3>Total Tests</h3>
+                        <p id="total-tests">0</p>
+                    </div>
+                    <div class="admin-stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Avg. WPM</h3>
+                        <p id="avg-wpm">0</p>
+                    </div>
+                    <div class="admin-stat-card">
+                        <i class="fas fa-bullseye"></i>
+                        <h3>Avg. Accuracy</h3>
+                        <p id="avg-accuracy">0%</p>
+                    </div>
+                </div>
+
+                <div class="card controls-panel">
+                    <div class="card-header">
+                        <h3><i class="fas fa-filter"></i> Filter & Sort Results</h3>
+                    </div>
+                    <div class="controls-body">
+                        <div class="filter-group">
+                            <label for="sort-by"><i class="fas fa-sort"></i> Sort By:</label>
+                            <select id="sort-by">
+                                <option value="date">Date (Newest First)</option>
+                                <option value="date-asc">Date (Oldest First)</option>
+                                <option value="name">Name (A-Z)</option>
+                                <option value="name-desc">Name (Z-A)</option>
+                                <option value="score">Score (High to Low)</option>
+                                <option value="score-asc">Score (Low to High)</option>
+                                <option value="wpm">WPM (High to Low)</option>
+                                <option value="wpm-asc">WPM (Low to High)</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="filter-user"><i class="fas fa-user"></i> Filter by User:</label>
+                            <select id="filter-user">
+                                <option value="all">All Users</option>
+                                <!-- User options will be populated by JavaScript -->
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="search-name"><i class="fas fa-search"></i> Search by Name:</label>
+                            <input type="text" id="search-name" placeholder="Enter name to search...">
+                        </div>
+
+                        <button id="clear-data-btn" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i> Clear All Data
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-table-container card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-list-alt"></i> All Test Results</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-wrapper">
+                            <table id="results-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Date & Time</th>
+                                        <th>Score</th>
+                                        <th>Accuracy</th>
+                                        <th>Words Typed</th>
+                                        <th>WPM</th>
+                                        <th>Test Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Results will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="no-results" id="no-results">
+                            <i class="fas fa-inbox"></i>
+                            <p>No test results found. Complete some typing tests to see data here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>SpeedType Typing Test &copy; <span id="current-year"></span> | Built with HTML, CSS & JavaScript</p>
+        </footer>
+    </div>
+
+    <script>
+        // Application State
+        const AppState = {
+            currentPage: 'home',
+            typingTest: null,
+            admin: null,
+            isMobile: false
+        };
+
+        // Utility Functions
+        const Utils = {
+            generateRandomText() {
+                const texts = [
+                    "the quick brown fox jumps over the lazy dog this sentence contains all letters of the alphabet and is commonly used for typing practice",
+                    "programming is the process of creating a set of instructions that tell a computer how to perform a task programming can be done using many languages",
+                    "technology has transformed our lives in countless ways from how we communicate to how we work and entertain ourselves the digital age continues to evolve rapidly",
+                    "learning to type quickly and accurately is an essential skill in today's digital world practice regularly to improve your speed and reduce errors",
+                    "the future of artificial intelligence promises to revolutionize industries and daily life machine learning algorithms are becoming increasingly sophisticated",
+                    "reading books enhances knowledge improves focus and reduces stress it is a valuable habit that everyone should cultivate from a young age",
+                    "nature provides us with beautiful landscapes clean air and essential resources protecting the environment is crucial for future generations",
+                    "healthy eating and regular exercise are key components of a balanced lifestyle small daily habits can lead to significant long-term health benefits",
+                    "traveling expands our horizons exposes us to new cultures and creates lasting memories exploring different places teaches valuable life lessons",
+                    "music has the power to evoke emotions bring people together and provide comfort during difficult times it is a universal language understood by all"
+                ];
+
+                return texts[Math.floor(Math.random() * texts.length)];
+            },
+
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            },
+
+            getTestResults() {
+                try {
+                    return JSON.parse(localStorage.getItem('typingTestResults') || '[]');
+                } catch (error) {
+                    console.error('Error parsing test results:', error);
+                    return [];
+                }
+            },
+
+            saveTestResult(result) {
+                try {
+                    const results = this.getTestResults();
+                    results.push(result);
+                    localStorage.setItem('typingTestResults', JSON.stringify(results));
+                    return true;
+                } catch (error) {
+                    console.error('Error saving test result:', error);
+                    return false;
+                }
+            },
+
+            clearAllResults() {
+                localStorage.removeItem('typingTestResults');
+                return true;
+            },
+
+            getUniqueUsers() {
+                const results = this.getTestResults();
+                const users = [...new Set(results.map(result => result.name))];
+                return users.sort();
+            },
+
+            // Mobile detection
+            isMobileDevice() {
+                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                    window.innerWidth <= 768;
+            },
+
+            // Adjust UI for mobile
+            adjustForMobile() {
+                AppState.isMobile = this.isMobileDevice();
+
+                if (AppState.isMobile) {
+                    // Show mobile-specific hints
+                    document.querySelectorAll('.mobile-hint').forEach(el => {
+                        el.style.display = 'inline-block';
+                    });
+
+                    // Simplify keyboard hints for mobile
+                    document.querySelectorAll('.key-hint:not(.mobile-visible)').forEach(el => {
+                        el.style.display = 'none';
+                    });
+
+                    // Adjust textarea for mobile keyboard
+                    const textarea = document.getElementById('typing-input');
+                    if (textarea) {
+                        textarea.setAttribute('autocapitalize', 'off');
+                        textarea.setAttribute('autocorrect', 'off');
+                        textarea.setAttribute('spellcheck', 'false');
+                    }
+                }
+            }
+        };
+
+        // Page Management
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(`${pageId}-page`).classList.add('active');
+
+            // Set active nav link
+            document.getElementById(`nav-${pageId}`).classList.add('active');
+
+            // Update app state
+            AppState.currentPage = pageId;
+
+            // Initialize page if needed
+            if (pageId === 'typing') {
+                initTypingTest();
+            } else if (pageId === 'admin') {
+                initAdminPanel();
+            }
+
+            // Update navigation visibility
+            updateNavigation();
+
+            // Scroll to top on mobile when changing pages
+            if (AppState.isMobile) {
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function updateNavigation() {
+            const navBar = document.querySelector('.nav-bar');
+            navBar.style.display = 'flex';
+
+            // Adjust navigation text for mobile
+            if (AppState.isMobile) {
+                document.querySelectorAll('.nav-text').forEach(text => {
+                    if (window.innerWidth <= 480) {
+                        text.style.display = 'none';
+                    } else {
+                        text.style.display = 'inline';
+                    }
+                });
+            }
+        }
+
+        // Typing Test Logic - FIXED VERSION
+        class TypingTest {
+            constructor() {
+                this.timeLeft = 60;
+                this.timer = null;
+                this.isTestActive = false;
+                this.isTestCompleted = false;
+                this.startTime = null;
+                this.correctWords = 0;
+                this.totalTypedWords = 0;
+                this.correctCharacters = 0;
+                this.totalCharacters = 0;
+                this.currentText = '';
+                this.words = [];
+                this.username = 'Guest';
+                this.testDuration = 60;
+                this.currentWordIndex = 0;
+                this.wordStartTimes = [];
+                this.wordEndTimes = [];
+
+                // Bind methods
+                this.init = this.init.bind(this);
+                this.startTest = this.startTest.bind(this);
+                this.finishTest = this.finishTest.bind(this);
+                this.updateDisplay = this.updateDisplay.bind(this);
+                this.handleInput = this.handleInput.bind(this);
+            }
+
+            init() {
+                // Reset variables
+                clearInterval(this.timer);
+                this.timeLeft = this.testDuration;
+                this.isTestActive = false;
+                this.isTestCompleted = false;
+                this.correctWords = 0;
+                this.totalTypedWords = 0;
+                this.correctCharacters = 0;
+                this.totalCharacters = 0;
+                this.startTime = null;
+                this.currentWordIndex = 0;
+                this.wordStartTimes = [];
+                this.wordEndTimes = [];
+
+                // Get user info
+                this.username = localStorage.getItem('currentUser') || 'Guest';
+                this.testDuration = parseInt(localStorage.getItem('testDuration') || '60');
+                this.timeLeft = this.testDuration;
+
+                // Reset UI
+                document.getElementById('timer').textContent = `${this.timeLeft}s`;
+                document.getElementById('wpm').textContent = '0';
+                document.getElementById('accuracy').textContent = '100%';
+                document.getElementById('score').textContent = '0';
+                document.getElementById('current-user').textContent = this.username;
+
+                const typingInput = document.getElementById('typing-input');
+                typingInput.value = '';
+                typingInput.disabled = false;
+
+                // Focus on textarea, but with a delay on mobile to prevent keyboard issues
+                if (AppState.isMobile) {
+                    setTimeout(() => typingInput.focus(), 300);
+                } else {
+                    typingInput.focus();
+                }
+
+                document.getElementById('results-panel').style.display = 'none';
+
+                // Get new random text (all lowercase)
+                this.currentText = Utils.generateRandomText();
+                this.words = this.currentText.split(' ');
+
+                // Display text (all lowercase)
+                this.displayText();
+
+                // Reset timer display
+                document.getElementById('timer').textContent = `${this.timeLeft}s`;
+                document.getElementById('timer').className = 'stat-value';
+            }
+
+            displayText() {
+                const textDisplay = document.getElementById('text-display');
+                textDisplay.innerHTML = '';
+
+                this.words.forEach((word, wordIndex) => {
+                    const wordSpan = document.createElement('span');
+                    wordSpan.className = 'word';
+                    wordSpan.id = `word-${wordIndex}`;
+
+                    // Add each character as a span
+                    for (let i = 0; i < word.length; i++) {
+                        const charSpan = document.createElement('span');
+                        charSpan.className = 'char';
+                        charSpan.textContent = word[i];
+                        wordSpan.appendChild(charSpan);
+                    }
+
+                    // Add space after word (except for last word)
+                    if (wordIndex < this.words.length - 1) {
+                        const spaceSpan = document.createElement('span');
+                        spaceSpan.className = 'char space';
+                        spaceSpan.textContent = ' ';
+                        wordSpan.appendChild(spaceSpan);
+                    }
+
+                    textDisplay.appendChild(wordSpan);
+                });
+            }
+
+            startTest() {
+                if (this.isTestActive) return;
+
+                this.isTestActive = true;
+                this.startTime = new Date();
+                this.wordStartTimes[0] = this.startTime;
+
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    document.getElementById('timer').textContent = `${this.timeLeft}s`;
+
+                    // Update timer color when time is running low
+                    if (this.timeLeft <= 10) {
+                        document.getElementById('timer').className = 'stat-value warning';
+                    }
+
+                    if (this.timeLeft <= 0) {
+                        this.finishTest();
+                    }
+                }, 1000);
+            }
+
+            finishTest() {
+                clearInterval(this.timer);
+                this.isTestActive = false;
+                this.isTestCompleted = true;
+                document.getElementById('typing-input').disabled = true;
+
+                // Calculate final stats accurately
+                const totalTimeMinutes = (new Date() - this.startTime) / 60000;
+                const finalWPM = totalTimeMinutes > 0 ? Math.round(this.correctWords / totalTimeMinutes) : 0;
+                const finalAccuracy = this.totalCharacters > 0 ? Math.round((this.correctCharacters / this.totalCharacters) * 100) : 100;
+
+                // Save results
+                Utils.saveTestResult({
+                    name: this.username,
+                    date: new Date().toISOString(),
+                    score: this.correctWords,
+                    accuracy: finalAccuracy,
+                    totalWords: this.totalTypedWords,
+                    wpm: finalWPM,
+                    duration: this.testDuration
+                });
+
+                // Show results panel
+                document.getElementById('final-wpm').textContent = finalWPM;
+                document.getElementById('final-accuracy').textContent = `${finalAccuracy}%`;
+                document.getElementById('final-score').textContent = this.correctWords;
+                document.getElementById('final-words').textContent = this.totalTypedWords;
+                document.getElementById('results-panel').style.display = 'block';
+
+                // Scroll to results
+                document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+            }
+
+            handleInput(event) {
+                const input = event.target.value;
+
+                // Force lowercase input
+                if (input !== input.toLowerCase()) {
+                    event.target.value = input.toLowerCase();
+                    return;
+                }
+
+                // Start test on first keypress
+                if (!this.isTestActive && !this.isTestCompleted && input.length > 0) {
+                    this.startTest();
+                }
+
+                this.updateDisplay(input);
+            }
+
+            updateDisplay(input) {
+                // Reset all characters to default
+                document.querySelectorAll('.char').forEach(char => {
+                    char.className = 'char';
+                });
+
+                // Split input into words
+                const inputWords = input.split(' ');
+                this.totalTypedWords = inputWords.filter(w => w !== '').length;
+
+                // Reset stats
+                let currentCorrectChars = 0;
+                this.correctWords = 0;
+
+                // Process each typed word
+                for (let wordIndex = 0; wordIndex < Math.min(inputWords.length, this.words.length); wordIndex++) {
+                    const typedWord = inputWords[wordIndex];
+                    const targetWord = this.words[wordIndex];
+                    const wordElement = document.getElementById(`word-${wordIndex}`);
+
+                    if (!wordElement) continue;
+
+                    // Process each character in the word
+                    const charElements = wordElement.querySelectorAll('.char:not(.space)');
+                    let wordCorrect = true;
+
+                    for (let i = 0; i < Math.max(typedWord.length, targetWord.length); i++) {
+                        const charElement = charElements[i];
+                        if (!charElement) continue;
+
+                        if (i < typedWord.length && i < targetWord.length) {
+                            if (typedWord[i] === targetWord[i]) {
+                                charElement.classList.add('correct');
+                                currentCorrectChars++;
+                            } else {
+                                charElement.classList.add('incorrect');
+                                wordCorrect = false;
+                            }
+                        } else if (i < typedWord.length) {
+                            // Extra characters typed
+                            charElement.classList.add('incorrect');
+                            wordCorrect = false;
+                        } else if (i < targetWord.length) {
+                            // Missing characters
+                            charElement.classList.add('incorrect');
+                            wordCorrect = false;
+                        }
+                    }
+
+                    // Check if word is complete and correct
+                    if (typedWord === targetWord) {
+                        this.correctWords++;
+                        wordElement.classList.add('word-correct');
+                        wordElement.classList.remove('word-incorrect');
+                    } else if (typedWord.length > 0) {
+                        wordElement.classList.add('word-incorrect');
+                        wordElement.classList.remove('word-correct');
+                    } else {
+                        wordElement.classList.remove('word-correct', 'word-incorrect');
+                    }
+
+                    // Highlight current word
+                    if (wordIndex === this.currentWordIndex) {
+                        wordElement.style.backgroundColor = '#e6f0ff';
+                    } else {
+                        wordElement.style.backgroundColor = '';
+                    }
+                }
+
+                // Highlight current character
+                const currentWordIndex = Math.min(inputWords.length - 1, this.words.length - 1);
+                if (currentWordIndex >= 0) {
+                    const currentWordElement = document.getElementById(`word-${currentWordIndex}`);
+                    if (currentWordElement) {
+                        const charIndex = inputWords[currentWordIndex].length;
+                        const charElements = currentWordElement.querySelectorAll('.char:not(.space)');
+                        if (charElements[charIndex]) {
+                            charElements[charIndex].classList.add('current');
+                        }
+                    }
+                }
+
+                // Update character stats
+                this.correctCharacters = currentCorrectChars;
+                this.totalCharacters = input.length;
+
+                // Calculate real-time WPM
+                if (this.startTime && this.isTestActive) {
+                    const elapsedMinutes = (new Date() - this.startTime) / 60000;
+                    const wpm = elapsedMinutes > 0 ? Math.round(this.correctWords / elapsedMinutes) : 0;
+                    document.getElementById('wpm').textContent = wpm;
+                }
+
+                // Calculate accuracy
+                const accuracy = this.totalCharacters > 0 ? Math.round((this.correctCharacters / this.totalCharacters) * 100) : 100;
+                document.getElementById('accuracy').textContent = `${accuracy}%`;
+
+                // Update score
+                document.getElementById('score').textContent = this.correctWords;
+
+                // Check if test should finish (all words typed or time's up)
+                if (input.trim() === this.currentText || this.timeLeft <= 0) {
+                    this.finishTest();
+                }
+
+                // Update current word index based on spaces
+                this.currentWordIndex = inputWords.length - 1;
+                if (this.currentWordIndex < 0) this.currentWordIndex = 0;
+                if (this.currentWordIndex >= this.words.length) this.currentWordIndex = this.words.length - 1;
+            }
+
+            newText() {
+                this.currentText = Utils.generateRandomText();
+                this.words = this.currentText.split(' ');
+                this.currentWordIndex = 0;
+                this.displayText();
+
+                const typingInput = document.getElementById('typing-input');
+                typingInput.value = '';
+                this.updateDisplay('');
+            }
+        }
+
+        function initTypingTest() {
+            if (!AppState.typingTest) {
+                AppState.typingTest = new TypingTest();
+            }
+
+            AppState.typingTest.init();
+
+            // Setup event listeners
+            const typingInput = document.getElementById('typing-input');
+            const restartBtn = document.getElementById('restart-btn');
+            const newTextBtn = document.getElementById('new-text-btn');
+            const homeBtn = document.getElementById('home-btn');
+            const tryAgainBtn = document.getElementById('try-again-btn');
+
+            // Remove existing event listeners
+            const newTypingInput = typingInput.cloneNode(true);
+            typingInput.parentNode.replaceChild(newTypingInput, typingInput);
+
+            // Add event listeners
+            document.getElementById('typing-input').addEventListener('input', function (e) {
+                AppState.typingTest.handleInput(e);
+            });
+
+            document.getElementById('typing-input').addEventListener('keydown', function (e) {
+                // On mobile, use simpler shortcuts
+                if (AppState.isMobile) {
+                    // R key to restart
+                    if (e.key === 'r' || e.key === 'R') {
+                        e.preventDefault();
+                        AppState.typingTest.init();
+                    }
+
+                    // N key for new text
+                    if (e.key === 'n' || e.key === 'N') {
+                        e.preventDefault();
+                        AppState.typingTest.newText();
+                    }
+                } else {
+                    // Ctrl+R to restart (desktop)
+                    if (e.ctrlKey && e.key === 'r') {
+                        e.preventDefault();
+                        AppState.typingTest.init();
+                    }
+
+                    // Ctrl+N for new text (desktop)
+                    if (e.ctrlKey && e.key === 'n') {
+                        e.preventDefault();
+                        AppState.typingTest.newText();
+                    }
+                }
+
+                // Auto-format to lowercase
+                if (e.key.length === 1 && e.key >= 'A' && e.key <= 'Z' && !e.ctrlKey && !e.altKey) {
+                    e.preventDefault();
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    const value = this.value;
+                    this.value = value.substring(0, start) + e.key.toLowerCase() + value.substring(end);
+                    this.selectionStart = this.selectionEnd = start + 1;
+
+                    // Trigger input event
+                    const inputEvent = new Event('input', { bubbles: true });
+                    this.dispatchEvent(inputEvent);
+                }
+            });
+
+            // Add touch event listeners for mobile
+            if (AppState.isMobile) {
+                document.getElementById('typing-input').addEventListener('touchstart', function () {
+                    this.focus();
+                });
+            }
+
+            restartBtn.onclick = () => AppState.typingTest.init();
+            newTextBtn.onclick = () => AppState.typingTest.newText();
+            homeBtn.onclick = () => showPage('home');
+            tryAgainBtn.onclick = () => AppState.typingTest.init();
+        }
+
+        // Admin Panel Logic
+        function initAdminPanel() {
+            const loginPanel = document.getElementById('login-panel');
+            const dashboard = document.getElementById('dashboard');
+
+            // Check if already logged in
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                showDashboard();
+            } else {
+                showLogin();
+            }
+
+            // Login form
+            document.getElementById('login-form').onsubmit = function (e) {
+                e.preventDefault();
+
+                const username = document.getElementById('admin-username').value;
+                const password = document.getElementById('admin-password').value;
+
+                // Hardcoded credentials
+                if (username === 'admin' && password === '1234') {
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    showDashboard();
+                } else {
+                    alert('Invalid username or password. Please try again.');
+                }
+            };
+
+            // Logout button
+            document.getElementById('logout-btn').onclick = function () {
+                localStorage.removeItem('adminLoggedIn');
+                showLogin();
+            };
+
+            // Clear data button
+            document.getElementById('clear-data-btn').onclick = function () {
+                if (confirm('Are you sure you want to delete ALL test results? This action cannot be undone.')) {
+                    Utils.clearAllResults();
+                    loadResults();
+                    updateStats();
+                }
+            };
+
+            // Filter events
+            document.getElementById('sort-by').onchange = loadResults;
+            document.getElementById('filter-user').onchange = loadResults;
+            document.getElementById('search-name').oninput = loadResults;
+
+            function showLogin() {
+                loginPanel.style.display = 'block';
+                dashboard.style.display = 'none';
+                document.getElementById('login-form').reset();
+            }
+
+            function showDashboard() {
+                loginPanel.style.display = 'none';
+                dashboard.style.display = 'block';
+                loadResults();
+                populateUserFilter();
+                updateStats();
+            }
+
+            function loadResults() {
+                const results = Utils.getTestResults();
+
+                // Apply filters
+                let filteredResults = [...results];
+
+                // Filter by user
+                const selectedUser = document.getElementById('filter-user').value;
+                if (selectedUser !== 'all') {
+                    filteredResults = filteredResults.filter(result => result.name === selectedUser);
+                }
+
+                // Filter by search name
+                const searchTerm = document.getElementById('search-name').value.toLowerCase().trim();
+                if (searchTerm) {
+                    filteredResults = filteredResults.filter(result =>
+                        result.name.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                // Sort results
+                const sortBy = document.getElementById('sort-by').value;
+                filteredResults.sort((a, b) => {
+                    switch (sortBy) {
+                        case 'date':
+                            return new Date(b.date) - new Date(a.date);
+                        case 'date-asc':
+                            return new Date(a.date) - new Date(b.date);
+                        case 'name':
+                            return a.name.localeCompare(b.name);
+                        case 'name-desc':
+                            return b.name.localeCompare(a.name);
+                        case 'score':
+                            return b.score - a.score;
+                        case 'score-asc':
+                            return a.score - b.score;
+                        case 'wpm':
+                            return b.wpm - a.wpm;
+                        case 'wpm-asc':
+                            return a.wpm - b.wpm;
+                        default:
+                            return new Date(b.date) - new Date(a.date);
+                    }
+                });
+
+                // Clear table
+                const tableBody = document.querySelector('#results-table tbody');
+                tableBody.innerHTML = '';
+
+                // Show/hide no results message
+                const noResultsElement = document.getElementById('no-results');
+                if (filteredResults.length === 0) {
+                    noResultsElement.style.display = 'flex';
+                } else {
+                    noResultsElement.style.display = 'none';
+
+                    // Populate table
+                    filteredResults.forEach(result => {
+                        const row = document.createElement('tr');
+
+                        // Format date
+                        const formattedDate = Utils.formatDate(result.date);
+
+                        row.innerHTML = `
+                            <td>${result.name}</td>
+                            <td>${formattedDate}</td>
+                            <td>${result.score}</td>
+                            <td>${result.accuracy}%</td>
+                            <td>${result.totalWords}</td>
+                            <td>${result.wpm}</td>
+                            <td>${result.duration}s</td>
+                        `;
+
+                        tableBody.appendChild(row);
+                    });
+                }
+            }
+
+            function populateUserFilter() {
+                const results = Utils.getTestResults();
+                const users = Utils.getUniqueUsers();
+
+                // Clear existing options except "All Users"
+                const filterUserSelect = document.getElementById('filter-user');
+                filterUserSelect.innerHTML = '<option value="all">All Users</option>';
+
+                // Add user options
+                users.forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user;
+                    option.textContent = user;
+                    filterUserSelect.appendChild(option);
+                });
+            }
+
+            function updateStats() {
+                const results = Utils.getTestResults();
+
+                // Calculate stats
+                const totalTests = results.length;
+                const totalUsers = Utils.getUniqueUsers().length;
+
+                let totalWPM = 0;
+                let totalAccuracy = 0;
+
+                results.forEach(result => {
+                    totalWPM += result.wpm;
+                    totalAccuracy += result.accuracy;
+                });
+
+                const avgWPM = totalTests > 0 ? Math.round(totalWPM / totalTests) : 0;
+                const avgAccuracy = totalTests > 0 ? Math.round(totalAccuracy / totalTests) : 0;
+
+                // Update UI
+                document.getElementById('total-tests').textContent = totalTests;
+                document.getElementById('total-users').textContent = totalUsers;
+                document.getElementById('avg-wpm').textContent = avgWPM;
+                document.getElementById('avg-accuracy').textContent = `${avgAccuracy}%`;
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Check if mobile and adjust UI
+            Utils.adjustForMobile();
+
+            // Handle window resize for responsive adjustments
+            window.addEventListener('resize', function () {
+                Utils.adjustForMobile();
+                updateNavigation();
+            });
+
+            // Home page form submission
+            document.getElementById('user-form').onsubmit = function (e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value.trim();
+                const testDuration = document.getElementById('test-mode').value;
+
+                if (username) {
+                    // Store user data
+                    localStorage.setItem('currentUser', username);
+                    localStorage.setItem('testDuration', testDuration);
+
+                    // Switch to typing test page
+                    showPage('typing');
+                }
+            };
+
+            // Check if there's a returning user
+            const lastUser = localStorage.getItem('currentUser');
+            if (lastUser) {
+                document.getElementById('username').value = lastUser;
+            }
+
+            // Initialize navigation
+            updateNavigation();
+
+            // Prevent zoom on mobile double-tap
+            document.addEventListener('touchstart', function (event) {
+                if (event.touches.length > 1) {
+                    event.preventDefault();
+                }
+            }, { passive: false });
+        });
+    </script>
+</body>
+
+</html>
